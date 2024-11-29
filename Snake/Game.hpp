@@ -43,7 +43,7 @@ private:
 
     // Minimal additions for touch input and controller support
     float initialTouchX, initialTouchY;  // For swipe detection
-    const float swipeThreshold = 0.25f;  // Minimum movement for a swipe to be detected
+    static const float swipeThreshold;  // Minimum movement for a swipe to be detected
     SDL_GameController* gameController;  // Game controller pointer
     static const int JOYSTICK_THRESHOLD;
 

@@ -8,6 +8,7 @@
 #include <emscripten.h>
 #endif
 
+const float Game::swipeThreshold = 0.25f;
 const int Game::FPS = 7;
 const int Game::maxSnakeSize = 30;
 const int Game::speedIncreaseThreshold = 5;
@@ -35,6 +36,8 @@ Game::Game()
 	, mPlayer()
 	, playAgainButton()
 	, food()
+	, initialTouchX(0.0f)
+	, initialTouchY(0.0f)
 	, score(0)
 	, mGrid(SCREEN_WIDTH, SCREEN_HEIGHT, CELL_SIZE)
 {
