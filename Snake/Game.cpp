@@ -224,40 +224,53 @@ void Game::processEvent() {
 			}
 			break;
 
-		case SDL_FINGERDOWN:
-		case SDL_FINGERMOTION: {
-			// Handle touch swipe gestures to control the snake
-			float touchX = event.tfinger.x * WINDOW_WIDTH;  // Normalize to screen width
-			float touchY = event.tfinger.y * WINDOW_HEIGHT; // Normalize to screen height
+		case SDL_FINGERDOWN: {			
 
-			if (event.type == SDL_FINGERDOWN) {
-				// Store the initial touch position for swipe detection
-				initialTouchX = touchX;
-				initialTouchY = touchY;
-			}
-			else if (event.type == SDL_FINGERMOTION) {
-				// Detect swipe direction based on the difference from the initial touch position
-				if (std::abs(touchX - initialTouchX) > swipeThreshold || std::abs(touchY - initialTouchY) > swipeThreshold) {
-					if (std::abs(touchX - initialTouchX) > std::abs(touchY - initialTouchY)) {
-						if (touchX > initialTouchX) {
-							handleSwipeRight();
-						}
-						else {
-							handleSwipeLeft();
-						}
+			initialTouchX = event.tfinger.x * WINDOW_WIDTH;
+			initialTouchY = event.tfinger.y * WINDOW_HEIGHT;
+
+			break;
+		}
+
+		
+		case SDL_FINGERMOTION: {
+					
+
+			// Normalize release position
+			float touchX = event.tfinger.x * WINDOW_WIDTH;
+			float touchY = event.tfinger.y * WINDOW_HEIGHT;
+
+			// Calculate swipe deltas
+			float deltaX = touchX - initialTouchX;
+			float deltaY = touchY - initialTouchY;
+
+			// Determine if swipe exceeds threshold
+			if (std::abs(deltaX) > std::abs(deltaY)) {
+				// Horizontal swipe
+				if (std::abs(deltaX) > swipeThreshold) {
+					if (deltaX > 0) {
+						handleSwipeRight(); // Trigger right swipe
 					}
 					else {
-						if (touchY > initialTouchY) {
-							handleSwipeDown();
-						}
-						else {
-							handleSwipeUp();
-						}
+						handleSwipeLeft();  // Trigger left swipe
 					}
 				}
 			}
+			else {
+				// Vertical swipe
+				if (std::abs(deltaY) > swipeThreshold) {
+					if (deltaY > 0) {
+						handleSwipeDown();  // Trigger down swipe
+					}
+					else {
+						handleSwipeUp();    // Trigger up swipe
+					}
+				}
+			}
+
 			break;
 		}
+
 
 		case SDL_JOYHATMOTION:
 			handleHatMotion(event.jhat);

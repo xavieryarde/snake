@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <title>Snake</title>
     <style>
       body {
@@ -42,11 +43,17 @@
         text-align: center;
         margin: 10px 0;
       }
+	  #fullscreen-btn{
+	  font-size: 30px;
+	  color: white;
+	  cursor: pointer;
+	  
+	  }
     </style>
   </head>
   <body>
     <div id="fullscreen-controls">
-      <button id="fullscreen-btn">Enter Fullscreen</button>
+    <i class="fa-solid fa-expand" id="fullscreen-btn" class=""></i>
     </div>
     <div id="fullscreen-error">
       Fullscreen failed. Please check browser settings or try a different browser.
